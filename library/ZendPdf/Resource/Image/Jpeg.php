@@ -60,7 +60,6 @@ class Jpeg extends AbstractImage
         if ($imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_JPEG2000) {
             throw new Exception\DomainException('ImageType is not JPG');
         }
-        getimagesizefromstring
 
         parent::__construct();
 
