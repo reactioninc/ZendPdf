@@ -48,12 +48,19 @@ class Jpeg extends AbstractImage
         if (!is_readable($imageFileName)) {
             throw new Exception\IOException( "File '$imageFileName' is not readable." );
         }
-        if (($imageInfo = getimagesize($imageFileName)) === false) {
+        // This will not work with s3's registerStreamWrapper, so its gotta go
+        // if (($imageInfo = getimagesize($imageFileName)) === false) {
+        //     throw new Exception\CorruptedImageException('Corrupted image.');
+        // }
+        
+        $imageFile = file_get_contents($imageFileName);
+        if (($imageInfo = getimagesizefromstring($imageFile)) === false) {
             throw new Exception\CorruptedImageException('Corrupted image.');
         }
         if ($imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_JPEG2000) {
             throw new Exception\DomainException('ImageType is not JPG');
         }
+        getimagesizefromstring
 
         parent::__construct();
 
